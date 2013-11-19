@@ -55,6 +55,15 @@ function processPost(post) {
 	var slug = post['wp:post_name'];
 	console.log('Post slug: ' + slug);
 
+	//Merge categories and tags into tags
+	var categories = [];
+	for(var i = 0; i < post.category.length; i++) {
+		var cat = post.category[i]['_'];
+		if(cat != "Uncategorized")
+			categories.push(cat);
+		//console.log('CATEGORY: ' + util.inspect(post.category[i]['_']));
+	}
+
 	var fullPath = 'out\\' + postDate.getFullYear() + '\\' + getPaddedMonthNumber(postDate.getMonth() + 1) + '\\' + slug;
 
 	fs.mkdir('out\\' + postDate.getFullYear(), function() {
@@ -70,11 +79,10 @@ function processPost(post) {
 					//console.log("Found: " + m[1]);
 				}
 
-				
 
 				if(matches != null && matches.length > 0) {
 					for(var i = 0; i < matches.length; i++) {
-						console.log('Post image found: ' + matches[i])
+						//console.log('Post image found: ' + matches[i])
 
 						var url = matches[i];
 						var urlParts = matches[i].split('/');
@@ -97,6 +105,8 @@ function processPost(post) {
 				header += "layout: post\n";
 				header += "title: " + postTitle + "\n";
 				header += "publishDate: " + postDate.getFullYear() + '-' + getPaddedMonthNumber(postDate.getMonth() + 1) + '-' + getPaddedDayNumber(postDate.getDate()) + "\n";
+				if(categories.length > 0)
+					header += "tags: " + JSON.stringify(categories) + '\n';
 				header += "---\n";
 				header += "\n";
 
