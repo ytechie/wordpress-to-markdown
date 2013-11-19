@@ -1,0 +1,26 @@
+{
+  "title": "Wordpress to Markdown",
+  "name": "wordpress-to-markdown",
+  "keywords": [
+    "wordpress",
+    "markdown",
+    "convert"
+  ],
+  "author": "Jason Young - jason@ytechie.com - ytechie.com",
+  "bugs": {
+    "url": "https://github.com/ytechie/wordpress-to-markdown/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ytechie/wordpress-to-markdown.git"
+  },
+  "engines": {
+    "node": ">=0.8",
+    "npm": ">=1.2"
+  },
+  "dependencies": {
+    "to-markdown": "~0.0.1",
+    "xml2js": "~0.2.8"
+  },
+  "main": "convert.js"
+}
