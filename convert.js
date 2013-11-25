@@ -100,11 +100,33 @@ function processPost(post) {
 
 				var markdown = toMarkdown.toMarkdown(postData);
 
+				//Fix characters that markdown doesn't like
+				// smart single quotes and apostrophe
+    			markdown = markdown.replace(/[\u2018|\u2019|\u201A]/g, "\'");
+    			// smart double quotes
+    			markdown = markdown.replace(/[\u201C|\u201D|\u201E]/g, "\"");
+				// ellipsis
+				markdown = markdown.replace(/\u2026/g, "...");
+				// dashes
+				markdown = markdown.replace(/[\u2013|\u2014]/g, "-");
+				// circumflex
+				markdown = markdown.replace(/\u02C6/g, "^");
+				// open angle bracket
+				markdown = markdown.replace(/\u2039/g, "<");
+				markdown = markdown.replace("&lt;", "<");
+				// close angle bracket
+				markdown = markdown.replace(/\u203A/g, ">");
+				markdown = markdown.replace("&gt;", ">");
+				// spaces
+				markdown = markdown.replace(/[\u02DC|\u00A0]/g, " ");
+				// ampersand
+				markdown = markdown.replace("&amp;", "&");
+
 				var header = "";
 				header += "---\n";
 				header += "layout: post\n";
 				header += "title: " + postTitle + "\n";
-				header += "publishDate: " + postDate.getFullYear() + '-' + getPaddedMonthNumber(postDate.getMonth() + 1) + '-' + getPaddedDayNumber(postDate.getDate()) + "\n";
+				header += "date: " + postDate.getFullYear() + '-' + getPaddedMonthNumber(postDate.getMonth() + 1) + '-' + getPaddedDayNumber(postDate.getDate()) + "\n";
 				if(categories.length > 0)
 					header += "tags: " + JSON.stringify(categories) + '\n';
 				header += "---\n";
