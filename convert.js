@@ -23,22 +23,12 @@ function processExport() {
 	        var posts = result.rss.channel[0].item;
 
 			
-			console.log('Creating folder for new output');
-        	
-
-        	fs.exists('out', function(exists) {
-        		//if(exists) {
-        			//console.log('Removing previous output');
-        			//fs.rmdirSync('out');		
-        		//}
-
-        		fs.mkdir('out', function() {
-			        for(var i = 0; i < posts.length; i++) {
-		        		processPost(posts[i]);
-			        	//console.log(util.inspect(posts[i]));
-			        }
-			    });
-	        });
+			fs.mkdir('out', function() {
+		        for(var i = 0; i < posts.length; i++) {
+	        		processPost(posts[i]);
+		        	//console.log(util.inspect(posts[i]));
+		        }
+			});
 	    });
 	});
 }
@@ -104,6 +94,7 @@ function processPost(post) {
 				// smart single quotes and apostrophe
     			markdown = markdown.replace(/[\u2018|\u2019|\u201A]/g, "\'");
     			// smart double quotes
+    			markdown = markdown.replace(/&quot;/g, "\"");
     			markdown = markdown.replace(/[\u201C|\u201D|\u201E]/g, "\"");
 				// ellipsis
 				markdown = markdown.replace(/\u2026/g, "...");
@@ -113,14 +104,14 @@ function processPost(post) {
 				markdown = markdown.replace(/\u02C6/g, "^");
 				// open angle bracket
 				markdown = markdown.replace(/\u2039/g, "<");
-				markdown = markdown.replace("&lt;", "<");
+				markdown = markdown.replace(/&lt;/g, "<");
 				// close angle bracket
 				markdown = markdown.replace(/\u203A/g, ">");
-				markdown = markdown.replace("&gt;", ">");
+				markdown = markdown.replace(/&gt;/g, ">");
 				// spaces
 				markdown = markdown.replace(/[\u02DC|\u00A0]/g, " ");
 				// ampersand
-				markdown = markdown.replace("&amp;", "&");
+				markdown = markdown.replace(/&amp;/g, "&");
 
 				var header = "";
 				header += "---\n";
