@@ -47,11 +47,13 @@ function processPost(post) {
 
 	//Merge categories and tags into tags
 	var categories = [];
-	for(var i = 0; i < post.category.length; i++) {
-		var cat = post.category[i]['_'];
-		if(cat != "Uncategorized")
-			categories.push(cat);
-		//console.log('CATEGORY: ' + util.inspect(post.category[i]['_']));
+	if (post.category != undefined) {
+		for(var i = 0; i < post.category.length; i++) {
+			var cat = post.category[i]['_'];
+			if(cat != "Uncategorized")
+				categories.push(cat);
+			//console.log('CATEGORY: ' + util.inspect(post.category[i]['_']));
+		}
 	}
 
 	var fullPath = 'out\\' + postDate.getFullYear() + '\\' + getPaddedMonthNumber(postDate.getMonth() + 1) + '\\' + slug;
@@ -132,20 +134,29 @@ function processPost(post) {
 }
 
 function downloadFile(url, path) {
-	//console.log("Downloading " + url + " to " + path);
-
-	var file = fs.createWriteStream(path).on('open', function() {
-		var request = http.get(url, function(response) {
-			//console.log("Response code: " + response.statusCode);
-			response.pipe(file);
+	 //console.log("Attempt downloading " + url + " to " + path + ' ' + url.indexOf("https:") );
+	if (url.indexOf("https:")  == -1) {
+		if (url.indexOf(".jpg") >=0 || url.indexOf(".png") >=0 || url.indexOf(".png") >=0) {
+			var file = fs.createWriteStream(path).on('open', function() {
+				var request = http.get(url, function(response) {
+				console.log("Response code: " + response.statusCode);
+				response.pipe(file);
+			}).on('error', function(err) {
+				console.log('error downloading url: ' + url + ' to ' + path);
+		});
 		}).on('error', function(err) {
+				console.log('error downloading url2: ' + url + ' to ' + path);
 
 		});
-	}).on('error', function(err) {
-
-	});
+	}
+	else {
+	  console.log ('passing on: ' + url + ' ' + url.indexOf('https:')); 
+	}
+	}
+	else {
+	  console.log ('passing on: ' + url + ' ' + url.indexOf('https:')); 
+	}
 }
-
 function getPaddedMonthNumber(month) {
 	if(month < 10)
 		return "0" + month;
