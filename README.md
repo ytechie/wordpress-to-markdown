@@ -2,6 +2,8 @@
 
 This script uses the standard exported XML file from WordPress, and creates a folder/file structure that contains all of the blog posts, converted to markdown format. It will also download all of the images.
 
+Instructions for exporting your information from WordPress [can be found here](http://en.support.wordpress.com/export/).
+
 The folder structure was designed after my blog. I like the structure because it groups the files for the post with the post itself. If you want a different format, you'll need to modify the script.
 
 	/2013/11/this-is-a-post/index.html.md
