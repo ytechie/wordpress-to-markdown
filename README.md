@@ -22,6 +22,22 @@ This uses [xml2js](https://github.com/Leonidas-from-XIV/node-xml2js) to parse th
 * You must have Node.js installed and available in the folder you wish to run the script from.
 * The folder the script is is *must* contain a WordPress export file called "export.xml". The file name is hard-coded.
 
+### Usage
+
+Clone the repo and go into its directory to install dependencies:
+
+```
+$ git clone https://github.com/ytechie/wordpress-to-markdown.git
+$ cd wordpress-to-markdown/
+$ npm install xml2js to-markdown
+```
+
+Copy your Wordpress content export into the folder as `export.xml`. Then run the script
+
+```
+$ node convert.js
+```
+
 ### License
 
 The MIT License (MIT)
