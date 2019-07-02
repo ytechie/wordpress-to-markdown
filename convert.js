@@ -56,10 +56,10 @@ function processPost(post) {
 		}
 	}
 
-	var fullPath = 'out\\' + postDate.getFullYear() + '\\' + getPaddedMonthNumber(postDate.getMonth() + 1) + '\\' + slug;
+	var fullPath = 'out/' + postDate.getFullYear() + '/' + getPaddedMonthNumber(postDate.getMonth() + 1) + '/' + slug;
 
-	fs.mkdir('out\\' + postDate.getFullYear(), function() {
-		fs.mkdir('out\\' + postDate.getFullYear() + '\\' + getPaddedMonthNumber(postDate.getMonth() + 1), function() {
+	fs.mkdir('out/' + postDate.getFullYear(), function() {
+		fs.mkdir('out/' + postDate.getFullYear() + '/' + getPaddedMonthNumber(postDate.getMonth() + 1), function() {
 			fs.mkdir(fullPath, function() {
 				//Find all images
 				var patt = new RegExp("(?:src=\"(.*?)\")", "gi");
@@ -80,7 +80,7 @@ function processPost(post) {
 						var urlParts = matches[i].split('/');
 						var imageName = urlParts[urlParts.length - 1];
 
-						var filePath = fullPath + '\\' + imageName;
+						var filePath = fullPath + '/' + imageName;
 
 						downloadFile(url, filePath);
 
@@ -125,7 +125,7 @@ function processPost(post) {
 				header += "---\n";
 				header += "\n";
 
-				fs.writeFile(fullPath + '\\index.html.md', header + markdown, function(err) {
+				fs.writeFile(fullPath + '/index.html.md', header + markdown, function(err) {
 
 				});
 			});
